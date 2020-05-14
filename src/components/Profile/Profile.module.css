@@ -1,0 +1,11 @@
+.page{
+    display: flex;
+    flex-wrap: wrap;
+    max-width: 1200px;
+
+}
+.wrap{
+    width: 100%;
+    background-color: rgba(93,43,78, .9);
+    justify-content: space-between;
+}

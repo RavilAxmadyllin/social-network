@@ -1,0 +1,9 @@
+.wrap{
+    margin-top: 10px;
+}
+
+.text textarea{
+    max-width: 955px;
+    min-width: 955px;
+    height: 20px;
+}

@@ -1,0 +1,31 @@
+.bar{
+    list-style-type: none;
+    margin: 0 0 10px;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    width: 200px;
+    height: 600px;
+    background: rgb(8,2,50);
+    font-size: 15px;
+}
+
+.link{
+    display: block;
+    text-decoration: none;
+    color: #d9d9d9;
+    font-weight: 600;
+    padding: 12px;
+    transition: all 0.5s ease;
+}
+
+.link:hover {
+    background: rgb(93,43,78);
+    color: #FFF;
+
+}
+.active {
+
+    font-weight: bold;
+    transform: scale(1.1);
+}

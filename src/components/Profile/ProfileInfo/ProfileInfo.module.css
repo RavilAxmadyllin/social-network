@@ -1,0 +1,15 @@
+.wrap {
+    display: flex;
+    justify-content: space-between;
+}
+
+.info{
+    width: 230px;
+    padding-top: 5px;
+
+}
+
+.desc{
+    width: 600px;
+    text-align: center;
+}
