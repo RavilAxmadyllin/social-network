@@ -2,9 +2,8 @@ import React from "react";
 import user from '../../assets/img/user.png'
 import styles from './User.module.css'
 import {NavLink} from "react-router-dom";
-import * as axios from 'axios'
 import {userAPI} from "../../api/api";
-
+import axios from 'axios'
 
 const Users = (props) => {
     let pageCount = Math.ceil(props.totalUsersCount / props.pageSize)
@@ -14,9 +13,9 @@ const Users = (props) => {
     }
     return (
         <div>
-            <div>{sizePage.map( p => <span
-                onClick={()=> props.onPageChanged(p)}
-                className={props.currentPage === p ? styles.selected : ''}>{p}</span>)}</div>
+            <div>{sizePage.map( p => <span key={p}
+                                           onClick={()=> props.onPageChanged(p)}
+                                           className={props.currentPage === p ? styles.selected : ''}>{p}</span>)}</div>
             {props.users.map(u =>{
                 return (
                     <div key={u.id}>
@@ -28,19 +27,9 @@ const Users = (props) => {
                         <div>{u.name} </div>
                         {u.followed ? <button
                                 disabled={props.isFollowedInProgress.some(id => id===u.id)}
-                                onClick={()=> {
-                                    userAPI.unfollow(u.id)
-                                        .then(response => {
-                                            if (response.data.resultCode === 0) props.follow(u.id)
-                                        })
-                                }
-                                }>unfollow</button>:
+                                onClick={()=> {props.unfollow(u.id)}}>unfollow</button>:
                             <button disabled={props.isFollowedInProgress.some(id => id===u.id)} onClick={()=>{
-                                props.toggleIsFollowingProgress(true, u.id)
-                                userAPI.follow(u.id)
-                                    .then(response => {
-                                        if (response.data.resultCode === 0) props.follow(u.id)
-                                    })
+                                props.follow(u.id)
                             }
                             }>follow</button>}
                         <div>{u.status}</div>

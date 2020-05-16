@@ -2,9 +2,12 @@
     background-color:rgb(93,43,78);
     background-image: linear-gradient(to left, rgb(93,43,78), rgb(8,2,50));
 }
-.logo{
+.headerInner{
     display: flex;
     justify-content: space-between;
+}
+.logo{
+
     color: white;
 
 }
