@@ -2,34 +2,21 @@ import React from "react";
 import {sendMessageCreator, updateNewMessageBodyCreator} from "../../redux/dialogs-reducer";
 import Dialogs from "./Dialogs";
 import {connect} from "react-redux";
+import {withAuthRedirect} from "../../hoc/withAuthRedirect";
 
 const mapStateToProps = (state) => {
-    return {dialogsPage: state.dialogsPage}
+    return {
+        dialogsPage: state.dialogsPage,
+        isAuth: state.auth.isAuth
+    }
 }
 const mapDispatchToProps = (dispatch) =>{
     return{
         updateNewMessageBodyCreator: (body) => dispatch(updateNewMessageBodyCreator(body)),
-        sendMessageCreator: () => dispatch({type:'SEND_MESSAGE' })
+        sendMessageCreator: () => dispatch(sendMessageCreator())
     }
 }
-
-const DialogsContainer = connect(mapStateToProps, mapDispatchToProps)(Dialogs)
+const RedirectDialogCon =  withAuthRedirect(Dialogs)
+const DialogsContainer = connect(mapStateToProps, mapDispatchToProps)(RedirectDialogCon)
 
 export default DialogsContainer
-
-
-
-// const DialogsContainer = (props)=> {
-//     const onSendMessageClick = () => {
-//         props.dispatch(sendMessageCreator())
-//     }
-//     const onChangeBodyText = (body) => {
-//         props.dispatch(updateNewMessageBodyCreator(body))
-//     }
-//     return <Dialogs
-//         store={props.store.dialogsPage}
-//         updateNewMessageBodyCreator={onChangeBodyText}
-//         sendMessageCreator={onSendMessageClick}
-//     />
-//
-// }
