@@ -85,6 +85,7 @@ export const follow = (userId) =>{
                 }
                 dispatch(toggleIsFollowingProgress(false, userId))
             })
+
     }
 }
 
