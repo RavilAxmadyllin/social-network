@@ -3,6 +3,7 @@ import styles from "./ProfileInfo.module.css"
 import Loading from "../../../Loader/Loader";
 
 class ProfileInfo extends React.Component {
+
     componentDidUpdate(prevProps, prevState) {
         if(prevProps.status !== this.props.status){
             this.setState({status:this.props.status})
@@ -27,7 +28,7 @@ class ProfileInfo extends React.Component {
         if (!this.props.profile) {
             return <Loading/>
         }
-        let img = this.props.profile.photos.large ? this.props.profile.photos.large : "https://placekitten.com/200/260"
+        const img = this.props.profile.photos.large ? this.props.profile.photos.large : "https://placekitten.com/200/260"
         return (
             <div className={styles.wrap}>
                 <div className={styles.info}>

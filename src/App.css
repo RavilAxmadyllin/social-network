@@ -1,6 +1,7 @@
 
 .wrap{
-  display: flex;
+  overflow: hidden;
+  background: #80808052;
 }
 
 .content{

@@ -11,12 +11,11 @@ let initialState = {
     users:[],
     pageSize: 50,
     totalUsersCount: 0,
-    currentPage: 3,
+    currentPage: 98,
     isLoading: true,
     isFollowedInProgress:[2],
 }
 const usersReducer = (state = initialState, action) => {
-    console.log(action)
     switch (action.type) {
         case FOLLOW:
             return {...state, users: state.users.map(u => {
@@ -29,7 +28,9 @@ const usersReducer = (state = initialState, action) => {
         case SET_CURRENT_PAGE: return {...state, currentPage: action.currentPage};
         case SET_TOTAL_COUNT: return {...state, totalUsersCount: action.total}
         case TOGGLE_IS_LOADING: return {...state, isLoading: action.param}
-        case TOGGLE_IS_FOLLOWING_PROGRESS: return  {
+        case TOGGLE_IS_FOLLOWING_PROGRESS:
+
+            return  {
             ...state,
             isFollowedInProgress: action.isFetching ?
                 [...state.isFollowedInProgress, action.userId]:
@@ -41,22 +42,22 @@ const usersReducer = (state = initialState, action) => {
 }
 
 export default usersReducer
-export const setTotalUsersCount = (total) => ({type: SET_TOTAL_COUNT, total})
-export const setCurrentPage = (currentPage) => ({type: SET_CURRENT_PAGE, currentPage})
-export const followSucces = (userId) => ({ type: FOLLOW, userId})
-export const setUsers = (users) => ({ type: SET_STATE, users})
-export const setIsLoading = (param) =>({type: TOGGLE_IS_LOADING, param})
+const setTotalUsersCount = (total) => ({type: SET_TOTAL_COUNT, total})
+const setCurrentPage = (currentPage) => ({type: SET_CURRENT_PAGE, currentPage})
+const followSucces = (userId) => ({ type: FOLLOW, userId})
+const setUsers = (users) => ({ type: SET_STATE, users})
+const setIsLoading = (param) =>({type: TOGGLE_IS_LOADING, param})
 export const toggleIsFollowingProgress = (isFetching, userId) => ({type:TOGGLE_IS_FOLLOWING_PROGRESS, isFetching, userId})
 
 
 
-export const  getUsersThunk = (currentPage, pageSize) => {
+export const  getUsersThunk = (page, pageSize) => {
 
     return dispatch =>{
         dispatch(setIsLoading(true))
-        userAPI.getUsers(currentPage, pageSize)
+        userAPI.getUsers(page, pageSize)
             .then(data => {
-                dispatch(setCurrentPage(currentPage))
+                dispatch(setCurrentPage(page))
                 dispatch(setTotalUsersCount(data.totalCount))
                 dispatch(setUsers(data.items))
                 dispatch(setIsLoading(false))
@@ -66,6 +67,7 @@ export const  getUsersThunk = (currentPage, pageSize) => {
 
 export const unfollow = (userId) =>{
     return dispatch => {
+        dispatch(toggleIsFollowingProgress(true, userId))
         userAPI.unfollow(userId)
             .then(response => {
                 if (response.data.resultCode === 0) {
@@ -77,7 +79,9 @@ export const unfollow = (userId) =>{
 }
 
 export const follow = (userId) =>{
+
     return dispatch => {
+        dispatch(toggleIsFollowingProgress(true, userId))
         userAPI.follow(userId)
             .then(response => {
                 if (response.data.resultCode === 0) {

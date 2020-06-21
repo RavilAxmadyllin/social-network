@@ -12,7 +12,10 @@ const Profile = (props) => {
         <div className={styles.page}>
             <div className={'container'}>
                 <div className={styles.wrap}>
-                    <ProfileInfo profile={props.profile} status={props.status} updateStatus={props.updateStatus}/>
+                    <ProfileInfo
+                        profile={props.profile}
+                        status={props.status}
+                        updateStatus={props.updateStatus}/>
                 </div>
                 <MyPostContainer/>
             </div>

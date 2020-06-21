@@ -13,6 +13,7 @@
 .link{
     display: block;
     text-decoration: none;
+    text-align: center;
     color: #d9d9d9;
     font-weight: 600;
     padding: 12px;

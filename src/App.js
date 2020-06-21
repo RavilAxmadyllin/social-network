@@ -7,24 +7,38 @@ import UsersContainer from "./components/Users/UserContainer";
 import ProfileContainer from "./components/Profile/ProfileContainer";
 import HeaderContainer from "./components/Header/HeaderContainer";
 import Login from "./components/Login/Login";
+import {connect} from "react-redux";
+import {initialized} from "./redux/app-reducer";
+import Loading from "./Loader/Loader";
 
 
-const App = (props) =>{
-    return(
-        <div className='wrap'>
-            <div className="container">
+class App extends React.Component {
+    componentDidMount() {
+    this.props.initialized()
+    }
+
+    render() {
+
+        if(!this.props.init){
+            return <Loading/>
+        }
+        return (
+            <div className='wrap'>
                 <HeaderContainer/>
+
                 <div className="content">
                     <Nav/>
-                    <Route path={'/profile/:userId?'} render={ () => <ProfileContainer />} />
-                    <Route path={'/message'} render={ () => <DialogsContainer/> } />
-                    <Route path={'/news'} />
-                    <Route path={'/login'} render={ () => <Login/>} />
-                    <Route path={'/users'} render={ () => <UsersContainer/>} />
+                    <Route path={'/profile/:userId?'} render={() => <ProfileContainer/>}/>
+                    <Route path={'/message'} render={() => <DialogsContainer/>}/>
+                    <Route path={'/login'} render={() => <Login/>}/>
+                    <Route path={'/users'} render={() => <UsersContainer/>}/>
                 </div>
             </div>
-        </div>
-    )
+        )
+    }
 }
+const mstp = (state) =>({
+    init: state.app.init
+})
 
-export default App;
+export default connect(mstp, {initialized})(App);
