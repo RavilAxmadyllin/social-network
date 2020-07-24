@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.css';
 import Nav from "./components/Nav/Nav";
-import {Route} from "react-router-dom";
+import {Redirect, Route} from 'react-router-dom';
 import DialogsContainer from "./components/Dialogs/DialogsContainer";
 import UsersContainer from "./components/Users/UserContainer";
 import ProfileContainer from "./components/Profile/ProfileContainer";
@@ -14,7 +14,7 @@ import Loading from "./Loader/Loader";
 
 class App extends React.Component {
     componentDidMount() {
-    this.props.initialized()
+        this.props.initialized()
     }
 
     render() {
@@ -22,19 +22,20 @@ class App extends React.Component {
         if(!this.props.init){
             return <Loading/>
         }
-        return (
-            <div className='wrap'>
-                <HeaderContainer/>
-
-                <div className="content">
-                    <Nav/>
+        return <div className={'App'}>
+            <HeaderContainer/>
+            <div className="content">
+                <Nav/>
+                <main>
+                    <Route path={'/'} render={() => <Redirect to={'/profile'}/>}/>
                     <Route path={'/profile/:userId?'} render={() => <ProfileContainer/>}/>
                     <Route path={'/message'} render={() => <DialogsContainer/>}/>
                     <Route path={'/login'} render={() => <Login/>}/>
                     <Route path={'/users'} render={() => <UsersContainer/>}/>
-                </div>
+                </main>
             </div>
-        )
+        </div>
+
     }
 }
 const mstp = (state) =>({

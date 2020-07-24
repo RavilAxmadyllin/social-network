@@ -1,9 +1,38 @@
 .wrap{
-    margin-top: 10px;
+    width: 100%;
 }
 
-.text textarea{
-    max-width: 955px;
-    min-width: 955px;
-    height: 20px;
+.postCreate{
+    display: flex;
+    min-height: 200px;
+    /*justify-content: center;*/
+    align-items: center;
+    border-radius: 4px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    background-color: #fff;
+    margin-bottom: 10px;
+
+}
+.header{
+    flex-direction: column;
+    padding: 16px 8px 16px 24px;
+    display: flex;
+    align-items: center;
+    margin-right: 20px;
+}
+.header img{
+    width: 45px;
+    height: 45px;
+    border-radius: 50%
+}
+
+textarea{
+    outline: none;
+    border: none;
+    background-color: #e5e5e5;
+    color: black;
+    margin: 0;
+    resize: none;
+    width: 787px;
+    height: 100px;
 }

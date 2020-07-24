@@ -3,6 +3,14 @@ import {connect} from "react-redux";
 import {follow, getUsersThunk, toggleIsFollowingProgress, unfollow} from "../../redux/users-reducer";
 import Users from "./Users";
 import Loading from "../../Loader/Loader";
+import {
+    followedInProgress,
+    getPage,
+    getPageSize,
+    getTotalUsersCount, getUsersFollowing,
+    isLoading,
+    setUsers
+} from '../../redux/users-selector';
 
 class UserContainer extends React.Component{
     componentDidMount() {
@@ -31,16 +39,25 @@ class UserContainer extends React.Component{
 
 }
 
+// const mapStateToProps = (state) =>{
+//     return {
+//         users: state.usersPage.users,
+//         pageSize: state.usersPage.pageSize,
+//         totalUsersCount: state.usersPage.totalUsersCount,
+//         currentPage: state.usersPage.currentPage,
+//         isLoading: state.usersPage.isLoading,
+//         isFollowedInProgress: state.usersPage.isFollowedInProgress
+//     }
+// }
 const mapStateToProps = (state) =>{
     return {
-        users: state.usersPage.users,
-        pageSize: state.usersPage.pageSize,
-        totalUsersCount: state.usersPage.totalUsersCount,
-        currentPage: state.usersPage.currentPage,
-        isLoading: state.usersPage.isLoading,
-        isFollowedInProgress: state.usersPage.isFollowedInProgress
+        users: getUsersFollowing(state),
+        pageSize: getPageSize(state),
+        totalUsersCount: getTotalUsersCount(state),
+        currentPage: getPage(state),
+        isLoading: isLoading(state),
+        isFollowedInProgress: followedInProgress(state)
     }
-
 }
 const UsersContainer = connect(mapStateToProps,
     { unfollow, follow, toggleIsFollowingProgress,getUsersThunk})(UserContainer)

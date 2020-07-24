@@ -1,54 +1,83 @@
-import React from "react";
-import styles from "./ProfileInfo.module.css"
-import Loading from "../../../Loader/Loader";
+import React, {useEffect, useState} from 'react';
+import styles from './ProfileInfo.module.css'
+import Loading from '../../../Loader/Loader';
+import ProfileDesc from './ProfileDesc';
+import ProfileFormRedux from './ProfileFormEdit';
 
-class ProfileInfo extends React.Component {
 
-    componentDidUpdate(prevProps, prevState) {
-        if(prevProps.status !== this.props.status){
-            this.setState({status:this.props.status})
+const ProfileInfo = props =>{
+
+    const onSave = (e) =>{
+        if(e.target.files.length){
+            props.savePhotos(e.target.files[0])
         }
+
+    }
+    const changeProfile = (form) =>{
+        props.editProfile(form)
+    }
+    const img = props.profile.photos.large ? props.profile.photos.large : "https://placekitten.com/200/260"
+    if (!props.profile) {
+        return <Loading/>
     }
 
-    state ={
-        editMode:false,
-        status : this.props.status || 'status'
-    }
-    editMode = () =>{
-        this.setState({editMode:true})
-    }
-    deactivetedEditMode = () =>{
-        this.setState({editMode:false})
-        this.props.updateStatus(this.state.status)
-    }
-    changeStatus = (e) =>{
-        this.setState({status:e.currentTarget.value})
-    }
-    render() {
-        if (!this.props.profile) {
-            return <Loading/>
-        }
-        const img = this.props.profile.photos.large ? this.props.profile.photos.large : "https://placekitten.com/200/260"
-        return (
-            <div className={styles.wrap}>
-                <div className={styles.info}>
-                    <img src={img} alt="info"/>
-                </div>
-                <div className={styles.desc}>
-                    <div>{this.props.profile.fullName}</div>
-                    <div>{this.props.profile.aboutMe}</div>
-                    <div>{this.state.editMode ?
-                        <input autoFocus={true}
-                               onBlur={this.deactivetedEditMode}
-                               value={this.state.status}
-                        onChange={this.changeStatus}/>
-                        :<span onDoubleClick={this.editMode}>{this.state.status}</span>}
-                    </div>
-                </div>
+    return(
+        <div className={styles.wrap}>
+            <div className={styles.colImg}>
+                <img src={img} alt="info"/>
+                {props.isOwner && <input onChange={onSave} type="file"/>}
+            </div>
+            <div className={styles.desc}>
+                <h1>{props.profile.fullName}</h1>
+                <ProfileStatus status={props.status} updateStatus={props.updateStatus}/>
+                {
+                    props.mode ?
+                        <ProfileFormRedux
+                            onSubmit={changeProfile}
+                            profile={props.profile}
+                            initialValues={props.profile}
+                            toggle={props.toggleProfileMode}
+                        />
+                        : <ProfileDesc profile={props.profile} toggleProfileMode={props.toggleProfileMode} />
+                }
+
 
             </div>
-        )
+
+        </div>
+
+    )
+}
+export default ProfileInfo
+
+const ProfileStatus = (props) => {
+    let [status, setStatus] = useState(props.status)
+    let [editMode, setEditMode] = useState(false)
+    useEffect(()=>{
+        setStatus(props.status)
+    }, [props.status])
+
+    const changeMode = () => {
+        setEditMode(true)
     }
+    const deactivetedMode = () =>{
+        setEditMode(false)
+        props.updateStatus(status)
+    }
+    const changeStatus = (e) =>{
+        setStatus(e.currentTarget.value)
+
+    }
+    return(
+        <div className={styles.status}>
+            <strong>status :</strong>
+            {editMode ?
+                <input autoFocus={true}
+                       onBlur={deactivetedMode}
+                       value={status}
+                       onChange={changeStatus}/>
+                :<span onDoubleClick={changeMode}>{status}</span>}
+        </div>
+    )
 }
 
-export default ProfileInfo

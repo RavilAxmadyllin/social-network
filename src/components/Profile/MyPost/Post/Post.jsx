@@ -1,12 +1,17 @@
 import React from "react";
-
+import styles from '../MyPost.module.css'
+import userPng from '../../../../assets/img/user.png';
 
 const Post = (props)=>{
     return (
         <div>
-            <div><img src="https://via.placeholder.com/40" alt=""/> Name profile</div>
-            <div>{props.message}</div>
-            <div><span>like</span><span>{props.like}</span></div>
+            <div  className={styles.postCreate}>
+                <div style={{flexDirection: 'column'}} className={styles.header}>
+                    <img src={userPng} alt=""/>
+                    <div>NAME PROFILE</div>
+                </div>
+                <div>{props.message}</div>
+            </div>
         </div>
     )
 };

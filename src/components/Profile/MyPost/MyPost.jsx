@@ -4,7 +4,7 @@ import Post from "./Post/Post";
 import {Field, reduxForm} from "redux-form";
 import {maxLength, required} from "../../../utils/validate";
 import {Textarea} from "../../FormComponent/FormComponent";
-
+import userPng from '../../../assets/img/user.png'
 const max20 = maxLength(20)
 const AddPost = (props) => {
     return(
@@ -20,9 +20,10 @@ const AddPostForm = reduxForm({form: 'addPostForm'})(AddPost)
 
 
 
-const MyPost = (props) => {
+const MyPost = React.memo ((props) => {
+
     let post = props.profilePage.posts.map(el =>{
-        return <Post key={el.id} message ={el.message} like={el.likesCounter}/>
+        return <Post key={el.id} message ={el.message}/>
     });
 
     const addPost = (value)=> {
@@ -32,14 +33,18 @@ const MyPost = (props) => {
 
     return (
         <div className={styles.wrap}>
-            <div className={styles.text}>
+            <div className={styles.postCreate}>
+                <div className={styles.header}>
+                    <img src={userPng} alt=""/>
+                    <div>NAME PROFILE</div>
+                </div>
                 <AddPostForm onSubmit={addPost}/>
             </div>
             {post}
         </div>
 
     )
-};
+})
 
 export default MyPost
 
