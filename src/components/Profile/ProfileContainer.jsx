@@ -8,12 +8,19 @@ import {compose} from "redux";
 
 
 class ProfileContainer extends React.Component{
-    componentDidMount() {
-        debugger
+    restorProfile() {
         let userId = this.props.match.params.userId
         if(!userId) userId = this.props.userId
         this.props.setProfile(userId)
         this.props.getStatus(userId)
+    }
+    componentDidMount() {
+       this.restorProfile()
+    }
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        if (prevProps.match.params.userId !== this.props.match.params.userId){
+            this.restorProfile()
+        }
     }
 
 
