@@ -1,16 +1,16 @@
-import React from "react";
-import {connect} from "react-redux";
-import {follow, getUsersThunk, toggleIsFollowingProgress, unfollow} from "../../redux/users-reducer";
-import Users from "./Users";
-import Loading from "../../Loader/Loader";
+import React from 'react'
+import {connect} from 'react-redux'
+import {follow, getUsersThunk, toggleIsFollowingProgress, unfollow} from '../../redux/users-reducer';
+import Users from './Users'
+
 import {
     followedInProgress,
     getPage,
     getPageSize,
     getTotalUsersCount, getUsers,
     isLoading,
-} from '../../redux/users-selector';
-import Pagination from '../pagination/Pagination';
+} from '../../redux/users-selector'
+import Pagination from '../pagination/Pagination'
 
 class UserContainer extends React.Component{
     componentDidMount() {

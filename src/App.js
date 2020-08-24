@@ -27,6 +27,7 @@ class App extends React.Component {
                 <main>
                     <Switch>
                         <Route path={'/profile/:userId?'} render={() => <ProfileContainer/>}/>
+                        <Route exact path={'/'} render={() => <Redirect to={'/profile'} />}/>
                         <Route path={'/dialogs/:userId?'} render={(props) => <Suspense fallback={<Loading />}>
                             <DialogsLazy userId={props.match.params.userId}/>
                         </Suspense>}/>

@@ -1,6 +1,6 @@
 import React from 'react'
 import styles from './Users.module.css'
-import User from' "./User"'
+import User from './User'
 import Loading from '../../Loader/Loader'
 
 
@@ -9,7 +9,6 @@ const Users = (props) => {
     return (
         <div>
             <div className={styles.block}>
-
                 {props.users.map(user => <User key={user.id} user={user} follow={props.follow}
                                               isFollowedInProgress={props.isFollowedInProgress}
                                               unfollow={props.unfollow}/>)}
