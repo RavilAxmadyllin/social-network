@@ -46,16 +46,69 @@ export const profileAPI ={
 
 }
 export const authMe ={
-   me(){
-       return instance.get('auth/me')
-   },
-   signIn(email, password, rememberMe = false, captcha=''){
-       return instance.post('auth/login',{email, password, rememberMe, captcha})
-   },
+    me(){
+        return instance.get('auth/me')
+    },
+    signIn(email, password, rememberMe = false, captcha=''){
+        return instance.post('auth/login',{email, password, rememberMe, captcha})
+    },
     signOut(){
         return instance.delete('auth/login')
     },
     captcha() {
-       return instance.get('security/get-captcha-url')
+        return instance.get('security/get-captcha-url')
     }
 }
+export const dialogsAPI ={
+    getDialogs() {
+        return instance.get('dialogs')
+            .then(resp => resp.data)
+    },
+    startDialog(userId) {
+        return instance.put(`dialogs/${userId}`)
+            .then(resp => resp.data)
+    },
+    getMessage(userId) {
+        return instance.get(`dialogs/${userId}/messages`)
+            .then(resp => resp.data)
+    },
+    sendMessage(userId, body) {
+        return instance.post(`dialogs/${userId}/messages`, {body})
+            .then(resp => resp.data)
+    },
+    getNewMessageCount() {
+        return instance.get(`dialogs/messages/new/count`)
+            .then(resp => resp.data)
+    },
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

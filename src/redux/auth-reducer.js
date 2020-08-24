@@ -1,8 +1,8 @@
-import {authMe} from "../api/api";
-import {stopSubmit} from "redux-form";
+import {authMe} from '../api/api'
+import {stopSubmit} from 'redux-form'
 
-const SET_AUTH_DATA = 'SET_AUTH_DATA'
-const GET_CAPTCHA = 'GET_CAPTCHA'
+const SET_AUTH_DATA = 'SOCIAL_NETWORK/AUTH/SET_AUTH_DATA'
+const GET_CAPTCHA = 'SOCIAL_NETWORK/AUTH/GET_CAPTCHA'
 const initialState = {
     userId: null,
     email: null,
@@ -27,7 +27,7 @@ const authReducer = (state = initialState, action) =>{
 }
 
 export default authReducer
-export const getCatchaUrl = (url) =>({type: GET_CAPTCHA, url})
+export const getCaptchaUrl = (url) =>({type: GET_CAPTCHA, url})
 export const setUserData = (userId, email, login, isAuth) => ({type:SET_AUTH_DATA, data: {userId, email, login, isAuth}})
 
 export const getAuthUserData = () => dispatch => {
@@ -47,7 +47,7 @@ export const loginUser = (email, password, rememberMe, captcha) => dispatch =>{
             }else {
                 if(response.data.resultCode === 10){
                     authMe.captcha().then(res =>{
-                        dispatch(getCatchaUrl(res.data.url))
+                        dispatch(getCaptchaUrl(res.data.url))
                         dispatch(getAuthUserData())
                     })
                 }

@@ -1,7 +1,6 @@
-import React from 'react';
-import {Field, reduxForm} from 'redux-form';
-import {Input} from '../../FormComponent/FormComponent';
-import styles from './ProfileFormEdit.module.css'
+import React from 'react'
+import {Field, reduxForm} from 'redux-form'
+import {Input} from '../../FormComponent/FormComponent'
 const ProfileForm = ({error, ...props}) => {
     return (
             <form onSubmit={props.handleSubmit}>

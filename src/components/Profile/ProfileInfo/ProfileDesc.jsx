@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'
 import styles from './ProfileInfo.module.css'
 const ProfileDesc = ({profile, toggleProfileMode}) =>{
     return(

@@ -1,4 +1,4 @@
-import profileReducer, {addPostAC, removePostAC} from './profile-reducer';
+import profileReducer, {addPostAC, removePostAC} from './profile-reducer'
 const state = {
     posts: [
         {id: 1, message: 'hello my darling', likesCounter: 12},

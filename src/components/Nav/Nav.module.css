@@ -19,14 +19,32 @@
     padding: 12px;
     transition: all 0.5s ease;
 }
+.list{
+    position: relative;
+
+}
 
 .link:hover {
     background: rgb(93,43,78);
     color: #FFF;
 
 }
-.active {
 
+.linkCount{
+    position: absolute;
+    top: 12px;
+    right: 10px;
+    font-weight: bold;
+    text-align: center;
+    font-weight: bold;
+    border: 1px solid white;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    color: white;
+    background: rgb(93,43,78);
+}
+.active {
     font-weight: bold;
     transform: scale(1.1);
 }

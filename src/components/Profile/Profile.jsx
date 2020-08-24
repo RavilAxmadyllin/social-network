@@ -1,8 +1,8 @@
-import React from "react";
+import React from 'react'
 import styles from './Profile.module.css'
-import ProfileInfo from "./ProfileInfo/ProfileInfo";
-import MyPostContainer from "./MyPost/MyPostContainer";
-import Loading from "../../Loader/Loader";
+import ProfileInfo from './ProfileInfo/ProfileInfo'
+import MyPostContainer from './MyPost/MyPostContainer'
+import Loading from '../../Loader/Loader'
 
 
 

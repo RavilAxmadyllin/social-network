@@ -1,9 +1,9 @@
-import React from 'react';
-import styles from  './MyPost.module.css';
-import Post from "./Post/Post";
-import {Field, reduxForm} from "redux-form";
-import {maxLength, required} from "../../../utils/validate";
-import {Textarea} from "../../FormComponent/FormComponent";
+import React from 'react'
+import styles from  './MyPost.module.css'
+import Post from './Post/Post'
+import {Field, reduxForm} from 'redux-form'
+import {maxLength, required} from '../../../utils/validate'
+import {Textarea} from '../../FormComponent/FormComponent'
 import userPng from '../../../assets/img/user.png'
 const max20 = maxLength(20)
 const AddPost = (props) => {

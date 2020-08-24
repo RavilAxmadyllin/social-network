@@ -1,8 +1,8 @@
-import React from "react";
-import styles from "./Dialogs.module.css"
-import DialogItem from "./DialogItem/DialogItem";
-import Message from "./Message/Message";
-import {Field, reduxForm} from "redux-form";
+import React from 'react'
+import styles from './Dialogs.module.css'
+import DialogItem from './DialogItem/DialogItem'
+import Message from './Message/Message'
+import {Field, reduxForm} from 'redux-form'
 
 const DialogMessage = (props) => {
     return (
@@ -15,10 +15,10 @@ const DialogMessage = (props) => {
 const DialogMessageForm = reduxForm({form: 'dialogMessageForm'})(DialogMessage)
 
 const Dialogs = (props)=> {
-    let dialog = props.dialogsPage.dialogs.map(el => <DialogItem key={el.id} name={el.name} id={el.id}/>);
-    let message = props.dialogsPage.messages.map(el => <Message key ={el.id} message={el.message}/>);
+    let dialog = props.dialogsPage.dialogs.map(d => <DialogItem key={d.id} userName={d.userName} id={d.id} photo={d.photos.small}/>)
+    let message = props.dialogsPage.messages.map(m => <Message key ={m.id} name={m.senderName} message={m.body}/>)
     const onSendMessage = (value) => {
-        props.sendMessageCreator(value.newMessageBody)
+        props.sendMessage(props.userId, value.newMessageBody)
         value.newMessageBody = ''
     }
     return(
@@ -27,12 +27,15 @@ const Dialogs = (props)=> {
                 {dialog}
             </div>
             <div className={styles.message}>
-                <div> {message} </div>
-                <DialogMessageForm onSubmit={onSendMessage}/>
+                {!props.dialogsPage.selectDialog ? <h3>SELECT DIALOG</h3> :
+                <>
+                    <div> {message} </div>
+                    <DialogMessageForm onSubmit={onSendMessage}/>
+                </>}
             </div>
         </div>
     )
-};
+}
 export default Dialogs
 
 

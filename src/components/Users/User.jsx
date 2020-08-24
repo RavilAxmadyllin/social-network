@@ -1,6 +1,6 @@
-import React from "react";
-import {NavLink} from "react-router-dom";
-import userPng from "../../assets/img/user.png"
+import React from 'react'
+import {NavLink} from 'react-router-dom'
+import userPng from '../../assets/img/user.png'
 import styles from './Users.module.css'
 
 
@@ -18,7 +18,6 @@ const User  = ({user,isFollowedInProgress, unfollow, follow}) => {
                     follow(user.id)
                 }
                 }>follow</button>}
-            <div>{user.status}</div>
         </div>
     )
 }

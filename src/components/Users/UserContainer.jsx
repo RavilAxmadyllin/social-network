@@ -7,10 +7,10 @@ import {
     followedInProgress,
     getPage,
     getPageSize,
-    getTotalUsersCount, getUsersFollowing,
+    getTotalUsersCount, getUsers,
     isLoading,
-    setUsers
 } from '../../redux/users-selector';
+import Pagination from '../pagination/Pagination';
 
 class UserContainer extends React.Component{
     componentDidMount() {
@@ -21,37 +21,26 @@ class UserContainer extends React.Component{
     }
     render(){
         return <>
-            {this.props.isLoading ? <Loading /> : null}
+            <Pagination onPageChanged={this.onPageChanged}
+                        currentPage={this.props.currentPage}
+                        totalUsersCount={this.props.totalUsersCount}
+                        pageSize={this.props.pageSize}/>
             <Users
                 follow={this.props.follow}
                 unfollow={this.props.unfollow}
                 users={this.props.users}
-                currentPage={this.props.currentPage}
-                onPageChanged={this.onPageChanged}
-                pageSize={this.props.pageSize}
-                totalUsersCount={this.props.totalUsersCount}
+                loading={this.props.isLoading}
                 isFollowedInProgress={this.props.isFollowedInProgress}
                 toggleIsFollowingProgress={this.props.toggleIsFollowingProgress}
             />
-
         </>
     }
 
 }
 
-// const mapStateToProps = (state) =>{
-//     return {
-//         users: state.usersPage.users,
-//         pageSize: state.usersPage.pageSize,
-//         totalUsersCount: state.usersPage.totalUsersCount,
-//         currentPage: state.usersPage.currentPage,
-//         isLoading: state.usersPage.isLoading,
-//         isFollowedInProgress: state.usersPage.isFollowedInProgress
-//     }
-// }
 const mapStateToProps = (state) =>{
     return {
-        users: getUsersFollowing(state),
+        users: getUsers(state),
         pageSize: getPageSize(state),
         totalUsersCount: getTotalUsersCount(state),
         currentPage: getPage(state),

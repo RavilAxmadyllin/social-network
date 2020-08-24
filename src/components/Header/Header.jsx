@@ -1,13 +1,13 @@
 import React from 'react'
 import styles from './Header.module.css'
-import {NavLink} from "react-router-dom";
+import {NavLink} from 'react-router-dom'
 
 
 
 const Header = (props)=> {
     return(
         <header className={styles.header}>
-            <div className="container">
+            <div className='container'>
                 <div className={styles.headerInner}>
                     <h2>social network</h2>
                     <div className={styles.logo}>

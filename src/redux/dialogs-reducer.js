@@ -1,34 +1,91 @@
+import {dialogsAPI} from '../api/api'
 
-const  SEND_MESSAGE = 'SEND_MESSAGE'
+const GET_MESSAGES = 'SOCIAL_NETWORK/DIALOGS/GET_MESSAGES'
+const GET_DIALOGS = 'SOCIAL_NETWORK/DIALOGS/GET_DIALOGS'
+const PUT_UP_DIALOG = 'SOCIAL_NETWORK/DIALOGS/PUT_UP_DIALOG'
+const SET_SELECT_DIALOG = 'SOCIAL_NETWORK/DIALOGS/SET_SELECT_DIALOG'
+const GET_NEW_MESSAGES_COUNT = 'SOCIAL_NETWORK/DIALOGS/GET_NEW_MESSAGES_COUNT'
 let initialState = {
-    dialogs: [
-        {id: 1, name: 'Dimych'},
-        {id: 2, name: 'Dim'},
-        {id: 3, name: 'Andrew'},
-        {id: 4, name: 'Irina'},
-        {id: 5, name: 'Marina'}
-    ],
-    messages: [
-        {id: 1, message: 'new message '},
-        {id: 2, message: 'message '},
-        {id: 3, message: 'text '},
-        {id: 4, message: 'lorem '},
-        {id: 5, message: 'random '}
-    ],
+    dialogs: [],
+    messages: [],
+    selectDialog: null,
+    newMessagesCount: 0
 
 }
 
 const dialogsReducer = (state =initialState, action) => {
-    let stateCopy = {...state}
     switch (action.type) {
-        case SEND_MESSAGE:
-            let body = stateCopy.newMessageBody
-            stateCopy={...state,
-                newMessageBody: '',
-                messages: [...state.messages,{id: Math.random(), message: action.message}] }
-            return stateCopy
-        default:return stateCopy
+        case GET_MESSAGES:
+            return {
+                ...state,
+                messages: [...action.messages]
+            }
+        case GET_DIALOGS:
+            return  {
+                ...state,
+                dialogs: action.dialogs
+            }
+        case GET_NEW_MESSAGES_COUNT:return {
+            ...state,
+            newMessagesCount: action.count
+        }
+        case PUT_UP_DIALOG:
+            return  {
+                ...state,
+                dialogs: [
+                    ...state.dialogs.filter(d => d.id === action.userId ),
+                    ...state.dialogs.filter(d => d.id !== action.userId )
+                ]
+            }
+        case SET_SELECT_DIALOG: return {
+            ...state,
+            selectDialog: action.userId
+        }
+        default:return state
     }
 }
 export default dialogsReducer
-export const sendMessageCreator = (message) => ({ type:SEND_MESSAGE, message })
+export const getMessagesSuccess = (messages) => ({ type:GET_MESSAGES, messages })
+export const getNewMessageCount = (count) => ({ type:GET_NEW_MESSAGES_COUNT, count })
+export const getDialogsSuccess = (dialogs) => ({ type:GET_DIALOGS, dialogs })
+export const putUpDialogs = (userId) => ({ type:PUT_UP_DIALOG, userId })
+export const setSelectDialog = (userId) => ({ type:SET_SELECT_DIALOG, userId })
+
+
+export const getDialogs = () =>async (dispatch) => {
+    const result = await dialogsAPI.getDialogs()
+    dispatch(getDialogsSuccess(result))
+    dispatch(newMessageCount())
+    console.log(result)
+}
+export const startDialog = (userId) =>async (dispatch) => {
+    const result = await dialogsAPI.startDialog(userId)
+    console.log('start', result)
+}
+export const getMessages = (userId) =>async (dispatch) => {
+    const result = await dialogsAPI.getMessage(userId)
+    dispatch(getMessagesSuccess(result.items))
+    dispatch(newMessageCount())
+}
+export const sendMessage = (userId, message) =>async (dispatch, getState) => {
+    await dialogsAPI.sendMessage(userId, message)
+    dispatch(getMessages(userId))
+    const dialog = getState().dialogsPage.dialogs.find(d => d.id === userId)
+    dialog ? dispatch(putUpDialogs(userId)) : dispatch(getDialogs())
+}
+export const newMessageCount = () => async (dispatch) => {
+    const count =  await dialogsAPI.getNewMessageCount()
+    dispatch(getNewMessageCount(count))
+}
+export const initializedDialog = (userId) => (dispatch) => {
+    if(!!userId) {
+        dispatch(startDialog(userId))
+        dispatch(getMessages(userId))
+    }
+    dispatch(getDialogs())
+}
+export const updateDialog = (userId) => dispatch => {
+    dispatch(getMessages(userId))
+    dispatch(setSelectDialog(userId))
+    dispatch(setSelectDialog(userId))
+}

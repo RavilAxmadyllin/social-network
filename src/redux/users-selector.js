@@ -3,8 +3,8 @@ import {createSelector} from 'reselect';
 export const setUsers = (state) => {
     return state.usersPage.users
 }
-export const getUsersFollowing  = createSelector( setUsers, (users) => {
-     return users.filter( u => u.photos.large !== null )
+export const getUsers  = createSelector( setUsers, (users) => {
+     return users.filter( u => u )
 })
 export const getPageSize = (state) => {
     return state.usersPage.pageSize

@@ -1,5 +1,5 @@
 import styles from './Pagination.module.css'
-import React, {useState} from 'react';
+import React, {useState} from 'react'
 
 const Pagination = (props) =>{
     let [portionNumber, setPortionNumber] = useState(1)
@@ -14,12 +14,12 @@ const Pagination = (props) =>{
     const rightPortion = portionNumber * portionSize
 
     return(
-        <div>{portionNumber > 1 &&  <button onClick={() => {setPortionNumber(portionNumber -1)}}> >> </button>}
+        <div>{portionNumber > 1 &&  <button onClick={() => {setPortionNumber(portionNumber -1)}}>{'<'}</button>}
             {sizePage.filter( p => p >= leftPortion && p <= rightPortion).map((p) => <span
                 key={p}
                 onClick={()=> props.onPageChanged(p)}
                 className={props.currentPage === p ? styles.selected : ''}>{p}</span>)}
-            {rightPortion &&  <button onClick={() => {setPortionNumber(portionNumber + 1)}}> >> </button>}
+            {portionCount & rightPortion &&  <button onClick={() => {setPortionNumber(portionNumber + 1)}}>{'>'}</button>}
 
         </div>
     )

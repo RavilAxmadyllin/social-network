@@ -1,12 +1,12 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useState} from 'react'
 import styles from './ProfileInfo.module.css'
-import Loading from '../../../Loader/Loader';
-import ProfileDesc from './ProfileDesc';
-import ProfileFormRedux from './ProfileFormEdit';
+import Loading from '../../../Loader/Loader'
+import ProfileDesc from './ProfileDesc'
+import ProfileFormRedux from './ProfileFormEdit'
+import {NavLink} from 'react-router-dom'
 
 
 const ProfileInfo = props =>{
-
     const onSave = (e) =>{
         if(e.target.files.length){
             props.savePhotos(e.target.files[0])
@@ -25,7 +25,11 @@ const ProfileInfo = props =>{
         <div className={styles.wrap}>
             <div className={styles.colImg}>
                 <img src={img} alt="info"/>
-                {props.isOwner && <input onChange={onSave} type="file"/>}
+                {props.isOwner ? <input onChange={onSave} type="file"/> :
+                <NavLink to={'/dialogs/' + props.profile.userId}>
+                    <button>send</button>
+                </NavLink>}
+
             </div>
             <div className={styles.desc}>
                 <h1>{props.profile.fullName}</h1>
