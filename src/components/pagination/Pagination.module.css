@@ -1,3 +1,9 @@
 .selected{
     font-weight: bold;
 }
+.page {
+    margin: 10px 0;
+}
+.page span {
+    padding: 1px 4px;
+}

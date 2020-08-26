@@ -14,12 +14,12 @@ const Pagination = (props) =>{
     const rightPortion = portionNumber * portionSize
 
     return(
-        <div>{portionNumber > 1 &&  <button onClick={() => {setPortionNumber(portionNumber -1)}}>{'<'}</button>}
+        <div className={styles.page}>{portionNumber > 1 &&  <button onClick={() => {setPortionNumber(portionNumber -1)}}>{'<'}</button>}
             {sizePage.filter( p => p >= leftPortion && p <= rightPortion).map((p) => <span
                 key={p}
                 onClick={()=> props.onPageChanged(p)}
-                className={props.currentPage === p ? styles.selected : ''}>{p}</span>)}
-            {portionCount & rightPortion &&  <button onClick={() => {setPortionNumber(portionNumber + 1)}}>{'>'}</button>}
+                className={props.currentPage === p ? `${styles.selected}` : ''}>{p}</span>)}
+            {portionCount && pageCount > rightPortion &&  <button onClick={() => {setPortionNumber(portionNumber + 1)}}>{'>'}</button>}
 
         </div>
     )

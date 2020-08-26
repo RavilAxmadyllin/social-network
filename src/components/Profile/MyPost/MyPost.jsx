@@ -5,6 +5,7 @@ import {Field, reduxForm} from 'redux-form'
 import {maxLength, required} from '../../../utils/validate'
 import {Textarea} from '../../FormComponent/FormComponent'
 import userPng from '../../../assets/img/user.png'
+
 const max20 = maxLength(20)
 const AddPost = (props) => {
     return(
@@ -24,12 +25,12 @@ const MyPost = React.memo ((props) => {
 
     let post = props.profilePage.posts.map(el =>{
         return <Post key={el.id} message ={el.message}/>
-    });
+    })
 
     const addPost = (value)=> {
         props.addPost(value.newPostText)
         value.newPostText = ''
-    };
+    }
 
     return (
         <div className={styles.wrap}>

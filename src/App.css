@@ -17,3 +17,13 @@ a{
   text-decoration: none;
   color: black;
 }
+.text{
+  word-break: break-word;
+}
+input {
+  border-radius: 5px;
+  outline: none;
+}
+input:focus{
+  outline: none;
+}
