@@ -14,11 +14,11 @@ const LoginForm = (props) =>{
             <div>
                 <Field name='email' component='input' type='text'  placeholder={'login'}
                        validate={[required]}/>
-                <div>Email: <strong> free@samuraijs.com</strong></div>
+                <div><b> free@samuraijs.com</b></div>
             </div>
             <div>
                 <Field name='password' component='input' type='password' placeholder={'password'}/>
-                <div>Password: <strong>free</strong></div>
+                <div><b>free</b></div>
             </div>
             <div>
                 <Field name='rememberMe' component='input' type='checkbox' />
