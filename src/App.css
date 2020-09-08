@@ -21,9 +21,13 @@ a{
   word-break: break-word;
 }
 input {
+  margin-bottom: 15px;
   border-radius: 5px;
   outline: none;
+  border: 0;
+  padding: 5px 10px;
 }
 input:focus{
-  outline: none;
+  outline: 1px;
+  border: 1px;
 }

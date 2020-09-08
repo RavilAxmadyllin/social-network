@@ -4,7 +4,7 @@ import styles from './DialogItem.module.css'
 import userPng from '../../../assets/img/user.png'
 
 const DialogItem = (props)=>{
-    const path = props.id ? `/dialogs/${props.id}` : 'ws'
+    const path = props.id ? `/dialogs/${props.id}` : '/dialogs/ws'
     let photos = props.photo ? props.photo : userPng
     return(
         <label className={styles.item}>
