@@ -1,4 +1,4 @@
-import profileReducer, {addPostAC, removePostAC} from './profile-reducer'
+import profileReducer, {addPost, removePost} from './profile-reducer'
 const state = {
     posts: [
         {id: 1, message: 'hello my darling', likesCounter: 12},
@@ -8,12 +8,12 @@ const state = {
 }
 test('add post', () => {
     const startState = state
-    const endState= profileReducer(startState, addPostAC('React'))
+    const endState= profileReducer(startState, addPost('React'))
     expect(endState.posts.length).toBe(4)
 });
 test('remove post', () => {
     const startState = state
-    const endState= profileReducer(startState, removePostAC(1))
+    const endState= profileReducer(startState, removePost(1))
     expect(endState.posts.length).toBe(2)
     expect(endState.posts[0].id).toBe(2)
 });
